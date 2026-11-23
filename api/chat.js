@@ -82,11 +82,17 @@ export default async function handler(req, res) {
         ...messages.filter((msg) => msg.role !== 'system'),
       ];
     } else if (mode === 'interview') {
-      const interviewSystemPrompt =
-        'The assistant is a friendly interviewer for the given role. ' +
-        'Ask exactly ONE question at a time. After each answer, give 1-2 lines of feedback, then ask the next question. ' +
-        'Mix technical and HR questions. Ask 5 questions in total, then give a final summary with strengths, areas to improve, and a score out of 10. ' +
-        'Stay on interview topics only.';
+  const interviewSystemPrompt =
+    'The assistant is a friendly interviewer for the given role. ' +
+    'Ask exactly ONE question at a time. After each answer, give 1-2 lines of feedback, then ask the next question. ' +
+    'Mix technical and HR questions. Ask 5 questions in total, then give a final summary with strengths, areas to improve, and a score out of 10. ' +
+    'Stay on interview topics only. ' +
+    'IMPORTANT FORMATTING RULES: ' +
+    'Do not use Markdown formatting. ' +
+    'Do not use asterisks (* or **) for bold or italic text. ' +
+    'Write "Question 1:" instead of "**Question 1:**". ' +
+    'Do not add decorative separators, unnecessary symbols, or excessive blank lines. ' +
+    'Keep all questions and feedback clean, simple, and readable.';
 
       finalMessages = [
         { role: 'system', content: interviewSystemPrompt },
