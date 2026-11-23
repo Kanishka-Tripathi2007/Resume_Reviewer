@@ -95,7 +95,7 @@ export default async function handler(req, res) {
     }
 
     // Call the Groq chat completions API with fetch using a Llama model
-    const model = process.env.GROQ_MODEL || 'llama-3.3-70b-versatile';
+    const model = process.env.GROQ_MODEL || 'openai/gpt-oss-120b';
 
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
