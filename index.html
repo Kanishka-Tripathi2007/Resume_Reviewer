@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume Reviewer</title>
+    <meta
+      name="description"
+      content="Paste your resume for structured feedback, then practice with a mock-interview chatbot."
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="chatbot.css" />
+  </head>
+  <body>
+    <!-- Navbar: logo and in-page links -->
+    <header id="site-header">
+      <nav id="navbar" aria-label="Primary">
+        <a id="logo" href="#hero" aria-label="Resume Reviewer home">Resume Reviewer</a>
+        <ul id="nav-list">
+          <li><a id="nav-review" href="#review-section">Review</a></li>
+          <li><a id="nav-feedback" href="#feedback-section">Feedback</a></li>
+          <li><a id="nav-interview" href="#interview-section">Interview</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="site-main">
+      <!-- Hero: heading, tagline, and Get Started -->
+      <section id="hero" aria-labelledby="hero-heading">
+        <h1 id="hero-heading">Resume Reviewer</h1>
+        <p id="hero-tagline">
+          Get instant feedback on your resume and practise for the interview
+        </p>
+        <a id="hero-cta" href="#review-section">Get Started</a>
+      </section>
+
+      <!-- Review My Resume: paste text, role, level, and submit -->
+      <section id="review-section" aria-labelledby="review-heading">
+        <h2 id="review-heading">Review My Resume</h2>
+        <form id="resume-form">
+          <label id="pdf-label" for="pdf-input">Upload your resume (PDF) or paste the text below</label>
+          <input id="pdf-input" name="resumePdf" type="file" accept=".pdf" />
+          <p id="pdf-status" aria-live="polite"></p>
+          <label id="resume-label" for="resume-input">Resume text</label>
+          <textarea
+            id="resume-input"
+            name="resume"
+            rows="18"
+            required
+            placeholder="Paste your resume text here…"
+            aria-describedby="char-count privacy-note error-msg"
+          ></textarea>
+          <p id="char-count" aria-live="polite">0 characters</p>
+
+          <label id="role-label" for="role-select">Target role</label>
+          <select id="role-select" name="role" required>
+            <option value="" disabled selected>Select a target role</option>
+            <option value="software-developer">Software Developer</option>
+            <option value="web-developer">Web Developer</option>
+            <option value="data-analyst">Data Analyst</option>
+            <option value="other">Other</option>
+          </select>
+
+          <label id="field-label" for="field-select">Field</label>
+          <select id="field-select" name="field" required>
+            <option value="" disabled selected>Select a field</option>
+            <option value="Tech">Tech</option>
+            <option value="Design">Design</option>
+            <option value="Business/Marketing">Business/Marketing</option>
+            <option value="Education">Education</option>
+            <option value="Healthcare">Healthcare</option>
+            <option value="Other">Other</option>
+          </select>
+
+          <label id="exact-role-label" for="role-input">Exact role (optional)</label>
+          <input
+            id="role-input"
+            name="exactRole"
+            type="text"
+            maxlength="120"
+            placeholder="e.g. Product Designer"
+            autocomplete="organization-title"
+          />
+
+          <label id="level-label" for="level-select">Experience level</label>
+          <select id="level-select" name="level" required>
+            <option value="" disabled selected>Select experience level</option>
+            <option value="fresher">Fresher</option>
+            <option value="1-3">1-3 years</option>
+          </select>
+
+          <button id="review-btn" type="submit">Review Resume</button>
+          <p id="error-msg" role="alert" aria-live="assertive"></p>
+          <p id="privacy-note">
+            <small>Please don't include your phone number, address, or ID numbers.</small>
+          </p>
+        </form>
+      </section>
+
+      <!-- Feedback: score and structured cards (shown after review) -->
+      <section id="feedback-section" aria-labelledby="feedback-heading" hidden>
+        <h2 id="feedback-heading">Feedback</h2>
+        <p id="loading" role="status" aria-live="polite">Reviewing your resume…</p>
+        <p id="score" aria-label="Resume score out of 10">/10</p>
+        <div id="feedback-cards">
+          <article id="strengths-card" aria-labelledby="strengths-heading">
+            <h3 id="strengths-heading">Strengths</h3>
+            <ul id="strengths-list"></ul>
+          </article>
+          <article id="weaknesses-card" aria-labelledby="weaknesses-heading">
+            <h3 id="weaknesses-heading">Weaknesses</h3>
+            <ul id="weaknesses-list"></ul>
+          </article>
+          <article id="keywords-card" aria-labelledby="keywords-heading">
+            <h3 id="keywords-heading">Missing Keywords</h3>
+            <ul id="keywords-list"></ul>
+          </article>
+          <article id="improvements-card" aria-labelledby="improvements-heading">
+            <h3 id="improvements-heading">Suggested Improvements</h3>
+            <ul id="improvements-list"></ul>
+          </article>
+        </div>
+        <button id="start-interview-btn" type="button" hidden>Start Mock Interview</button>
+      </section>
+
+      <!-- Interview: mock-interview chatbot -->
+      <section id="interview-section" aria-labelledby="interview-heading" hidden>
+        <h2 id="interview-heading">Interview</h2>
+        <div
+          id="chat-box"
+          role="log"
+          aria-live="polite"
+          aria-label="Interview chat messages"
+        ></div>
+        <p id="typing-indicator" role="status" aria-live="polite" hidden>Typing…</p>
+        <form id="chat-form">
+          <label id="chat-label" for="chat-input">Your answer</label>
+          <input
+            id="chat-input"
+            name="message"
+            type="text"
+            autocomplete="off"
+            placeholder="Type your answer…"
+          />
+          <button id="send-btn" type="submit">Send</button>
+        </form>
+        <p id="interview-summary" aria-live="polite"></p>
+        <button id="restart-interview-btn" type="button" hidden>Restart Interview</button>
+      </section>
+    </main>
+
+    <!-- Footer: project name, course label, and GitHub link -->
+    <footer id="site-footer">
+      <p id="footer-project">Resume Reviewer</p>
+      <p id="footer-course">Prompt Engineering Project</p>
+      <p id="footer-github">
+        <a
+          id="github-link"
+          href="https://github.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Resume Reviewer GitHub repository (opens in a new tab)"
+        >GitHub repo</a>
+      </p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="script.js"></script>
+    <script src="chatbot.js"></script>
+  </body>
+</html>
